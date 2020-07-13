@@ -13,7 +13,7 @@ import { Connection } from 'typeorm';
   imports: [
     // EasyconfigModule.register({ path: './.env' }),
     UserModule,
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({ keepConnectionAlive: true }),
   ],
   controllers: [AppController],
   providers: [AppService],

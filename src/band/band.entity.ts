@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { Genre } from 'src/genre/genre.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { Genre } from '../genre/genre.entity';
 
 @Entity('band')
 export class Band {
@@ -21,9 +28,7 @@ export class Band {
   @Column({ name: 'date_formed' })
   dateFormed: Date;
 
-  @ManyToMany(type => Genre, genre => genre.name, {
-    cascade: true,
-  })
+  @ManyToMany(type => Genre)
   @JoinTable()
   genres: Genre[];
 }
