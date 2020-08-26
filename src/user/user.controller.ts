@@ -28,6 +28,7 @@ export class UserController {
     return await this.userService.findOne(params.id);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('user')
   async create(@Body() request: CreateUserDTO): Promise<User> {
     return await this.userService.create(request);
