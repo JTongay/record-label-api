@@ -14,7 +14,6 @@ async function bootstrap() {
     new ValidationPipe({
       forbidUnknownValues: true,
       exceptionFactory: (errors: ValidationError[]) => {
-        console.log(errors, 'booyah');
         return new BadRequestException(new ValidationExceptionFactory(errors));
       },
     }),
