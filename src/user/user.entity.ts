@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Timestamp } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { compareSync, compare } from 'bcrypt';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

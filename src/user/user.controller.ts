@@ -30,7 +30,6 @@ export class UserController {
 
   @Post('user')
   async create(@Body() request: CreateUserDTO): Promise<User> {
-    console.log(request, 'request');
     return await this.userService.create(request);
   }
 }

@@ -4,24 +4,25 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { UserDTO } from './dto';
 import { CreateUserDTO } from './dto/create-user.dto';
+import { hash } from 'bcrypt';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async findAll(): Promise<UserDTO[]> {
-    const users: User[] = await this.userRepository.find();
+    const users: User[] = await this.userRepository.findAll();
     return users.map(user => new UserDTO(user));
   }
 
   async findOne(id: string): Promise<User> {
-    return await this.userRepository.findOne(id);
+    return await this.userRepository.findById(id);
   }
 
   async create(request: CreateUserDTO): Promise<User> {
-    return await this.userRepository.create(request);
+    const { username, password } = request;
+    const hashedPassword = await hash(password, 12);
+    return await this.userRepository.createAndSave(username, hashedPassword);
   }
 }
